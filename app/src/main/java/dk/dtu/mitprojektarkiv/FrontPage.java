@@ -39,6 +39,8 @@ public class FrontPage extends AppCompatActivity implements View.OnClickListener
         if ( view == startGameBtn){
 
            startGameBtn.setText("Lets GO!");
+            Intent i = new Intent(this, Game.class);
+            startActivity(i);
 
         }
         else if ( view == highScoreBtn){
