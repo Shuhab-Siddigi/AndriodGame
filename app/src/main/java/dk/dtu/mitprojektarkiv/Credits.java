@@ -23,6 +23,7 @@ public class Credits extends AppCompatActivity implements View.OnClickListener {
         // Knap Lytter
         homePage.setOnClickListener(this);
 
+        //Some change
     }
 
 
