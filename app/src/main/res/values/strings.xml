@@ -1,0 +1,8 @@
+<resources>
+    <string name="gameTitle">Kugle Spil</string>
+    <string name="credits">Credits</string>
+    <string name="highScore">High Score</string>
+    <string name="startGame">Start Game</string>
+    <string name="homePage">Return</string>
+
+</resources>
