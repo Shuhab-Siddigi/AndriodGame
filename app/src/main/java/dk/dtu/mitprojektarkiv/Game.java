@@ -7,6 +7,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class Game extends AppCompatActivity implements SensorEventListener {
@@ -23,8 +24,8 @@ public class Game extends AppCompatActivity implements SensorEventListener {
         setContentView(R.layout.activity_game);
 
         // ---------------- Ball --------------- //
-        //View GameLogic = new GameGraphics(this);
-        //setContentView(GameLogic);
+        View Ball = new Ball(this);
+        setContentView(Ball);
 
         // ---------------- Accelormeter ------------ //
         // Create Sensor Manger
