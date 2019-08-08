@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GestureDetectorCompat;
 
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,8 +12,9 @@ public class Credits extends AppCompatActivity implements View.OnClickListener {
 
     // Forskellige instanser
     Button homePage;
-    GestureDetectorCompat gestureDetector;
 
+    GestureDetectorCompat gestureDetectorCompat;
+    GestureDetector gestureDetector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +25,6 @@ public class Credits extends AppCompatActivity implements View.OnClickListener {
         // Knap Lytter
         homePage.setOnClickListener(this);
 
-        //Some change
     }
 
 
