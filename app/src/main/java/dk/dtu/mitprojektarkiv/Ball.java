@@ -16,6 +16,7 @@ public class Ball extends View {
     private int ballHeight = 80;
     private int posX = 0;
     private int posY = 0;
+
     // Other Propeties
     private Paint paint;
     private RectF ballBounds;
@@ -39,48 +40,46 @@ public class Ball extends View {
         canvas.drawOval(ballBounds,paint);
 
 
-        move();
+        /*
 
         // Updates the View every 30 millis
-      /*try {
+        try {
             Thread.sleep(30);
         } catch (
                 InterruptedException exception) {
         }
-        */
+         */
         invalidate();
 
     }
 
-    private void move() {
-        // @wip
-    }
 
 
-    // KeyUp Event Handler
+
+    // KeyUp Event Handler & Move function
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_D: // move right
-                posX += 5;
+                posX +=10;
                 System.out.println("PosX Right = "+ posX);
                 break;
-            case KeyEvent.KEYCODE_S: // move left
-                posY  +=5;
+            case KeyEvent.KEYCODE_S: // move down
+                posY  +=10;
                 System.out.println("PosY left = "+ posY);
                 break;
-            case KeyEvent.KEYCODE_A: // move down
-                posX -=5;
+            case KeyEvent.KEYCODE_A: // move left
+                posX -=10;
                 System.out.println("PosX down = "+ posX);
                 break;
             case KeyEvent.KEYCODE_W: // move up
-                posY -=5;
+                posY -=10;
                 System.out.println("PosY up = "+ posY);
                 break;
             case KeyEvent.KEYCODE_SPACE: // Stop ball
-                posX = 0;
-                posY = 0;
-                System.out.println(" posY and posX  " + posX + posY);
+                posX = 1080/2;
+                posY = 1920/2;
+                System.out.println(" posY and posX  " + posY + posX);
                 break;
         }
         return true; // Event håndteret
