@@ -30,7 +30,6 @@ public class FrontPage extends AppCompatActivity implements View.OnClickListener
         highScoreBtn.setOnClickListener(this);
         creditsBtn.setOnClickListener(this);
 
-
     }
 
     @Override // Handlinger for hvis man trykker på knapperne
