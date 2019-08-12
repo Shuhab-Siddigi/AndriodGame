@@ -2,23 +2,25 @@ package dk.dtu.mitprojektarkiv;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.view.KeyEvent;
+
 import android.view.View;
 
 public class GameCanvas extends View {
 
     // Ball Properties
 
-    private static final int ballWidth = 80;
-    private static final int ballHeight = 80;
-    private static int posX = 0;
-    private static int posY = 0;
+  //  private static final int ballWidth = 80;
+  //  private static final int ballHeight = 80;
+   // private int posX = 0;
+   // private int posY = 0;
     // Other Propeties
     private Paint paint;
     private RectF ballBounds;
+   // GameLogic gameLogic;
+  //  int posX = gameLogic.getX();
+ //   int posY = gameLogic.getY();
 
 
     // Creating Canvas
@@ -35,24 +37,14 @@ public class GameCanvas extends View {
     // Drawing on Canvas
     @Override
     protected void onDraw(Canvas canvas ){
+     //   System.out.println("Getter Value X: = "+ this.posX);
+    //    System.out.println("Getter Value Y: = "+ this.posY);
 
         //Draw Ball
-        Ball nyBold = new Ball(posX,posY);
+        Ball nyBold = new Ball(GameSensor.posX,GameSensor.posY);
+        System.out.println("X Pos : = "+ GameSensor.posX );
+        System.out.println("Y Pos : = "+ GameSensor.posY );
         nyBold.drawBall(canvas,paint);
-        Ball nyBold2 = new Ball(posX+10,posY+100);
-        nyBold2.drawBall(canvas,paint);
-        Ball nyBold3 = new Ball(posX+50,posY+200);
-        nyBold3.drawBall(canvas,paint);
-        Ball nyBold4 = new Ball(posX+40,posY+300);
-        nyBold4.drawBall(canvas,paint);
-
-        //ballBounds.set(posX,posY,ballWidth+posX,ballHeight+posY);
-        //paint.setColor(Color.BLACK);
-        //canvas.drawOval(ballBounds,paint);
-
-
-
-
 
         // Updates the View every 30 millis
       /*try {
@@ -64,6 +56,7 @@ public class GameCanvas extends View {
         invalidate(); // Updates Canvas
 
     }
+    /*
     // KeyUp Event Handler
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
@@ -92,5 +85,5 @@ public class GameCanvas extends View {
         }
         return true; // Event håndteret
     }
-
+ */
 }

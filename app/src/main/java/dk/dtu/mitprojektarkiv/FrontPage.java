@@ -11,7 +11,7 @@ import android.widget.Button;
 
 public class FrontPage extends AppCompatActivity implements View.OnClickListener {
 
-    // Forskellige instanteringer
+    // Instantations
 
     Button startGameBtn, highScoreBtn, creditsBtn;
 
@@ -32,7 +32,7 @@ public class FrontPage extends AppCompatActivity implements View.OnClickListener
 
     }
 
-    @Override // Handlinger for hvis man trykker på knapperne
+    @Override // Small mux for handling what happens if you press the buttons
     public void onClick(View view) {
 
         if ( view == startGameBtn){
@@ -60,7 +60,7 @@ public class FrontPage extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-    // Advarsels box til hvis man kommer til at trykke på tilbage knappen
+    // Warning for if you press the back button on the Front page
     @Override
     public void onBackPressed(){
        final AlertDialog.Builder builder = new AlertDialog.Builder(FrontPage.this);

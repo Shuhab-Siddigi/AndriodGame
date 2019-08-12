@@ -2,59 +2,34 @@
 
 package dk.dtu.mitprojektarkiv;
 
-public abstract class GameLogic {
+public class GameLogic {
 
-    protected float x,y;
- //   protected ID id;
-    protected int velX,velY;
+    protected int posX,posY;
 
-    public GameLogic(int x,int y ID id) {
+    public GameLogic(int posX,int posY) {
 
-        this.x = x;
-        this.y = y;
- //       this.id = id;
+        this.posX = posX;
+        this.posY = posX;
     }
 
-    public void setX(int x){
-        this.x = x;
+    public void setPosX(int posX){
+        this.posX = posX;
     }
 
-    public int getX(){
-        return x;
+    public int getPosX(){
+        return this.posX;
     }
 
-    public void setY(int y){
-        this.y = y;
+    public void setPosY(int posY){
+        this.posY = posY;
     }
 
-    public int getY(){
-        return y;
+    public int getPosY(){
+        return this.posY;
     }
 
-    public void setVelX(int velX){
-        this.velX = velX;
-    }
-
-    public int getVelX(){
-        return velX;
-    }
-
-    public void setVelY(int velY){
-        this.velY = velY;
-    }
-
-    public int getVelY(){
-        return velY;
-    }
-/*
-    public void setId(ID id){
-        this.id = id;
-    }
-
-    public ID getId(){
-        return id;
-    }
 
 
 }
+
 */
