@@ -1,35 +1,44 @@
-/*
 
+/*
 package dk.dtu.mitprojektarkiv;
 
 public class GameLogic {
 
-    protected int posX,posY;
+   int posX;
+   int posY;
 
-    public GameLogic(int posX,int posY) {
+    public GameLogic(int posX,int posY){
 
-        this.posX = posX;
-        this.posY = posX;
+    this.posX = posX;
+    this.posY = posY;
+
     }
 
-    public void setPosX(int posX){
-        this.posX = posX;
+    public void gyroMovement(int posX,int posY){
+        if ( this.posX >= 0 ){
+            this.posX += this.posX*9;
+        }else if (this.posX <= 0){
+            this.posX -= this.posX*9;
+        }
+        else{
+            this.posX = 0;
+        }
+        if ( this.posY >= 0 ){
+            this.posY += this.posX*9;}
+        else if ( this.posY <= 0){
+            this.posY -= this.posX*9;
+        }
+        else {
+            this.posY = 0;
+        }
     }
 
-    public int getPosX(){
-        return this.posX;
+    public int getX(int posX){
+        return posX;
     }
-
-    public void setPosY(int posY){
-        this.posY = posY;
+    public int getY(int posY){
+        return posX;
     }
-
-    public int getPosY(){
-        return this.posY;
-    }
-
-
 
 }
-
 */

@@ -41,8 +41,6 @@ public class GameSensor extends Application implements SensorEventListener {
 
        posX = (int) sensorEvent.values[0];
        posY =  (int) sensorEvent.values[1];
-      // System.out.println("Gyro PosX = " + posX);
-      // System.out.println("Gyro posY = " + posY);
 
     }
 

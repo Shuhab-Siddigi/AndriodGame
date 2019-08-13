@@ -15,8 +15,8 @@ public class Ball {
     private static final int ballHeight = 80;
 
     // The positions of the ball
-    int posX;
-    int posY;
+    float posX;
+    float posY;
     /*
     int posZ; // For further use later
     */
@@ -24,7 +24,7 @@ public class Ball {
     private RectF ballBounds;
 
     // Creating a Constructor for the ball to be passed on
-    public Ball(int posX, int posY) {
+    public Ball(float posX, float posY) {
          this.posX = posX;
          this.posY = posY;
         this.ballBounds = new RectF();

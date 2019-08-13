@@ -9,18 +9,10 @@ import android.view.View;
 
 public class GameCanvas extends View {
 
-    // Ball Properties
-
-  //  private static final int ballWidth = 80;
-  //  private static final int ballHeight = 80;
-   // private int posX = 0;
-   // private int posY = 0;
-    // Other Propeties
+    // Properties
     private Paint paint;
     private RectF ballBounds;
-   // GameLogic gameLogic;
-  //  int posX = gameLogic.getX();
- //   int posY = gameLogic.getY();
+    GameSensor gameSensor = new GameSensor();
 
 
     // Creating Canvas
@@ -41,10 +33,10 @@ public class GameCanvas extends View {
     //    System.out.println("Getter Value Y: = "+ this.posY);
 
         //Draw Ball
-        Ball nyBold = new Ball(GameSensor.posX,GameSensor.posY);
-        System.out.println("X Pos : = "+ GameSensor.posX );
-        System.out.println("Y Pos : = "+ GameSensor.posY );
-        nyBold.drawBall(canvas,paint);
+        Ball bold = new Ball(gameSensor.posX,gameSensor.posY);
+        System.out.println("X Pos : = "+ gameSensor.posX );
+        System.out.println("Y Pos : = "+ gameSensor.posY );
+        bold.drawBall(canvas,paint);
 
         // Updates the View every 30 millis
       /*try {
@@ -83,7 +75,7 @@ public class GameCanvas extends View {
                 System.out.println(" posY and posX  " + posX + posY);
                 break;
         }
-        return true; // Event håndteret
+        return true;
     }
  */
 }
