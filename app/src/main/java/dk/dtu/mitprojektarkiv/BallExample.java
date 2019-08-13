@@ -107,8 +107,6 @@ public class BallExample extends View {
 
     }
 
-
-
     private void update() {
         // Get new (x,y) position
         ballX += ballSpeedX;

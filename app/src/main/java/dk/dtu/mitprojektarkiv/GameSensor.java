@@ -15,32 +15,33 @@ public class GameSensor extends Application implements SensorEventListener {
     private Sensor mySensor;
     private SensorManager mySensorManager;
 
-    static int posX = 0;
-    static int posY = 0;
+    static int xPosition = 0;
+    static int yPosition = 0;
 
     @Override
     public void onCreate() {
         super.onCreate();
         // ---------------- Accelormeter ------------ //
         // Create Sensor Manger
-        mySensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        mySensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         if (mySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
             System.out.println("Accelerometer link was a success!");
-        }
-        else{
+        } else {
             System.out.println("There is either no accelerometer or it cannot be accessed");
         }
         // Accelormeter Sensor
-           mySensor = mySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mySensor = mySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         // Register sensor Listener
-           mySensorManager.registerListener(this,mySensor,SensorManager.SENSOR_DELAY_GAME);
+        mySensorManager.registerListener(this, mySensor, SensorManager.SENSOR_DELAY_GAME);
         // Assign TextView
     }
+
+    // Sends the value X,Y,Z from the accelerometer from index Z:[0] Y:[1] X:[2]
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 
-       posX = (int) sensorEvent.values[0];
-       posY =  (int) sensorEvent.values[1];
+        xPosition = (int) sensorEvent.values[0];
+        yPosition = (int) sensorEvent.values[1];
 
     }
 
@@ -48,4 +49,5 @@ public class GameSensor extends Application implements SensorEventListener {
     public void onAccuracyChanged(Sensor sensor, int i) {
 
     }
+
 }

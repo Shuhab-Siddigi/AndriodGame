@@ -35,57 +35,42 @@ public class FrontPage extends AppCompatActivity implements View.OnClickListener
     @Override // Small mux for handling what happens if you press the buttons
     public void onClick(View view) {
 
-        if ( view == startGameBtn){
-
-           startGameBtn.setText("Lets GO!");
+        if (view == startGameBtn) {
+            startGameBtn.setText("Lets GO!");
             Intent i = new Intent(this, Game.class);
             startActivity(i);
-
-        }
-        else if ( view == highScoreBtn){
-
-
+        } else if (view == highScoreBtn) {
             Intent i = new Intent(this, HighScore.class);
             startActivity(i);
-
-        }
-        else if (view == creditsBtn){
-
+        } else if (view == creditsBtn) {
             Intent i = new Intent(this, Credits.class);
             startActivity(i);
-
-        }
-        else{
+        } else {
             System.out.println("Front Page activity intent went Wrong");
         }
     }
 
     // Warning for if you press the back button on the Front page
     @Override
-    public void onBackPressed(){
-       final AlertDialog.Builder builder = new AlertDialog.Builder(FrontPage.this);
-       builder.setMessage("Are you sure you want to exit?");
-       builder.setCancelable(true);
-       builder.setNegativeButton("No i want more fun!", new DialogInterface.OnClickListener() {
-           @Override
-           public void onClick(DialogInterface dialogInterface, int i) {
-               dialogInterface.cancel();
-           }
-       });
-       builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-           @Override
-           public void onClick(DialogInterface dialogInterface, int i) {
-               finish();
-           }
-       });
-       AlertDialog alertDialog = builder.create();
-       alertDialog.show();
+    public void onBackPressed() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(FrontPage.this);
+        builder.setMessage("Are you sure you want to exit?");
+        builder.setCancelable(true);
+        builder.setNegativeButton("No i want more fun!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
-
-
-
-
-
 
 
 }

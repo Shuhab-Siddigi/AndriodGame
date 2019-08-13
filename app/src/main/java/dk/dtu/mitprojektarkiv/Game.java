@@ -14,7 +14,7 @@ This Activity is set to landscape in the AndroidManifest.xml file
 if changes are needed that is the place to edit the orientation.
  */
 
-public class Game extends AppCompatActivity{
+public class Game extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

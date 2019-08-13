@@ -10,35 +10,31 @@ import android.widget.Button;
 
 public class Credits extends AppCompatActivity implements View.OnClickListener {
 
-    // Forskellige instanser
+    // instances
     Button homePage;
 
     GestureDetectorCompat gestureDetectorCompat;
     GestureDetector gestureDetector;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_credits);
 
-        // Knapper
+        // Buttons
         homePage = (Button) findViewById(R.id.homePage);
-        // Knap Lytter
+        // Button Listener
         homePage.setOnClickListener(this);
 
     }
 
-
     @Override
     public void onClick(View view) {
 
-        if ( view == homePage){
-
-            finish();
-          //  Intent i = new Intent(this, FrontPage.class);
-          //  startActivity(i);
-        }
-        else{
-            System.out.println("Credits Page activity intent went Wrong");
+        if (view == homePage) {
+            finish(); // Kills Activity
+        } else {
+            System.out.println("Front page intent from Credits page went Wrong");
         }
 
     }

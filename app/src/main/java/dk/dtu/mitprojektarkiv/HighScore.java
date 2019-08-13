@@ -30,13 +30,12 @@ public class HighScore extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View view) {
 
-        if ( view == homePage){
+        if (view == homePage) {
 
             // Lukker nuværende Activity
             finish();
 
-        }
-        else{
+        } else {
             System.out.println("High Score Page activity intent went Wrong");
         }
 
