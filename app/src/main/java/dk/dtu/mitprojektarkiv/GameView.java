@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -15,6 +17,7 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 public class GameView extends SurfaceView implements SensorEventListener {
 
@@ -24,8 +27,7 @@ public class GameView extends SurfaceView implements SensorEventListener {
     private int[] sensorVals = new int[3];
 
     // Properties
-    private Bitmap ball;
-    private Bitmap wall;
+    private Bitmap ball,background,backgroundScale;
     SurfaceHolder holder;
     private GameThread gameThread;
 
@@ -34,13 +36,14 @@ public class GameView extends SurfaceView implements SensorEventListener {
 
     // Position of the objects
     private float xPosition = 0;
-    private float yPosition = 0;
+    private float yPosition = 700;
 
     private float xVel = 10;
     private float yVel = 2;
 
     // Data for the Images ---
-
+    private int canvasHeight = 0;
+    private int canvasWidth = 0;
     // Data for ball
 
     private int xBallPosition = 0;
@@ -55,12 +58,6 @@ public class GameView extends SurfaceView implements SensorEventListener {
         // Create a new thread for the game
         gameThread = new GameThread(this);
 
-        // Define Images to be processes as bitmaps
-        ball = BitmapFactory.decodeResource(getResources(), R.drawable.dinowalk_1);
-
-        // Get the sizes of the different images
-        ballWidth = ball.getWidth();
-        ballHeight = ball.getHeight();
 
         // Create a holder to take care of tasks and clean up
         holder = getHolder();
@@ -70,6 +67,17 @@ public class GameView extends SurfaceView implements SensorEventListener {
 
             @Override
             public void surfaceCreated(SurfaceHolder surfaceHolder) {
+
+                // Define Images to be processes as bitmaps
+                ball = BitmapFactory.decodeResource(getResources(), R.drawable.dinowalk_1);
+                background = BitmapFactory.decodeResource(getResources(),R.drawable.tetris);
+                backgroundScale = Bitmap.createScaledBitmap(background,1920,1080,false);
+
+                // Get the sizes of the different images
+                ballWidth = ball.getWidth();
+                ballHeight = ball.getHeight();
+
+
                 gameThread.setRunning(true);
                 gameThread.start();
                 accelerometerInit(context);
@@ -104,19 +112,23 @@ public class GameView extends SurfaceView implements SensorEventListener {
     public void draw(Canvas canvas) {
         // For Background at things which are always there
         super.draw(canvas);
+
+        canvas.drawBitmap(backgroundScale,0,0,null);
         xPosition+=10;
-        yPosition++;
-        canvas.drawColor(Color.WHITE);
-
-
-
 
     }
 
     // For volatile things that can be removed again
     protected void OnDraw(Canvas canvas) {
         canvas.drawBitmap(ball, xPosition, yPosition, null);
-        canvas.drawCircle(50,100,80,this.paint);
+        //canvas.drawCircle(600,400,80,this.paint);
+        if(xPosition == 1920){
+            xPosition *=-1;
+        }
+        if (xPosition == 0){
+            xPosition = 0;
+        }
+
 
     }
 
