@@ -27,7 +27,7 @@ public class BallExample extends View {
     private Paint paint;
 
 
-    // Constructor for the Ball
+    // Constructor for the ImageDraw
     public BallExample(Context context) {
         super(context);
         ballBounds = new RectF();
@@ -86,7 +86,7 @@ public class BallExample extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        // Draw Ball
+        // Draw ImageDraw
 
         ballBounds.set(ballX - ballRadius, ballY - ballRadius, ballX + ballRadius, ballSpeedY + ballRadius);
         paint.setColor(Color.BLACK);

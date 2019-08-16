@@ -13,7 +13,7 @@ public class FrontPage extends AppCompatActivity implements View.OnClickListener
 
     // Instantations
 
-    Button startGameBtn, highScoreBtn, creditsBtn;
+    Button startGameBtn, highScoreBtn, creditsBtn,extraBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +24,13 @@ public class FrontPage extends AppCompatActivity implements View.OnClickListener
         startGameBtn = (Button) findViewById(R.id.startGame);
         highScoreBtn = (Button) findViewById(R.id.highScore);
         creditsBtn = (Button) findViewById(R.id.credits);
+        extraBtn = (Button) findViewById(R.id.extraBtn);
 
         // Knap Lytter
         startGameBtn.setOnClickListener(this);
         highScoreBtn.setOnClickListener(this);
         creditsBtn.setOnClickListener(this);
-
+        extraBtn.setOnClickListener(this);
     }
 
     @Override // Small mux for handling what happens if you press the buttons
@@ -45,7 +46,13 @@ public class FrontPage extends AppCompatActivity implements View.OnClickListener
         } else if (view == creditsBtn) {
             Intent i = new Intent(this, Credits.class);
             startActivity(i);
-        } else {
+        }
+        else if ( view == extraBtn ){
+            Intent i = new Intent(this, GameView.class);
+            startActivity(i);
+        }
+
+            else {
             System.out.println("Front Page activity intent went Wrong");
         }
     }

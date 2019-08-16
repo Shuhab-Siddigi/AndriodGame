@@ -1,9 +1,9 @@
+/*
 package dk.dtu.mitprojektarkiv;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.RectF;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -11,10 +11,10 @@ public class GameCanvas extends View {
 
     // Properties
     private Paint paint;
-    private RectF ballBounds;
 
     // Instances
     GameSensor gameSensor = new GameSensor();
+    ImageDraw drawObjects;
 
     // -------- Debug tool or Keyboard / key input ----------------- //
     int xPosition;
@@ -33,7 +33,6 @@ public class GameCanvas extends View {
 
         super(context);
         paint = new Paint();
-        ballBounds = new RectF();
         this.setFocusable(true);
         this.requestFocus();
 
@@ -42,24 +41,24 @@ public class GameCanvas extends View {
     // Drawing on Canvas
     @Override
     protected void onDraw(Canvas canvas) {
-        //Draw Ball
+        //Draw ImageDraw
 
         // Move ball by Accelerometer
-        // Ball bold = new Ball(gameSensor.xPosition,gameSensor.yPosition);
+        // ImageDraw bold = new ImageDraw(gameSensor.xPosition,gameSensor.yPosition);
 
         // Move ball by Keyboard / Key input
-        Ball bold = new Ball(keyInput.xPosition, keyInput.yPosition);
-
+        ImageDraw bold = new ImageDraw(keyInput.xPosition,keyInput.yPosition,50,50);
+        ImageDraw firkart = new ImageDraw(keyInput.xPosition,keyInput.yPosition,50,40);
         // Draw Objects on Canvas
         bold.drawBall(canvas, paint);
+        drawObjects.drawSquare(canvas,paint);
 
         // Create a small delay so it can be updated correctly
-      /*try {
+      try {
             Thread.sleep(30);
         } catch (
                 InterruptedException exception) {
         }
-        */
 
         // UI Thread that updates the Canvas / View
         invalidate(); // Updates Canvas
@@ -67,3 +66,4 @@ public class GameCanvas extends View {
     }
 
 }
+*/

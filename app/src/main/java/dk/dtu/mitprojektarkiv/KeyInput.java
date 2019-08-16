@@ -1,3 +1,4 @@
+/*
 package dk.dtu.mitprojektarkiv;
 
 import android.view.KeyEvent;
@@ -16,19 +17,19 @@ public class KeyInput {
     public void Keys(int keyCode) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_D: // move right
-                this.xPosition += 5;
+                this.xPosition += 1;
                 System.out.println("PosX Right = " + this.xPosition);
                 break;
             case KeyEvent.KEYCODE_S: // move left
-                this.yPosition += 5;
+                this.yPosition += 1;
                 System.out.println("PosY left = " + this.yPosition);
                 break;
             case KeyEvent.KEYCODE_A: // move down
-                this.xPosition -= 5;
+                this.xPosition -= 1;
                 System.out.println("PosX down = " + this.xPosition);
                 break;
             case KeyEvent.KEYCODE_W: // move up
-                this.yPosition -= 5;
+                this.yPosition -= 1;
                 System.out.println("PosY up = " + this.yPosition);
                 break;
             case KeyEvent.KEYCODE_SPACE: // Stop ball
@@ -41,3 +42,4 @@ public class KeyInput {
 
 
 }
+*/
