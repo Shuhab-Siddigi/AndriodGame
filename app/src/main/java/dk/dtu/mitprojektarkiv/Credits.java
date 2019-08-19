@@ -1,8 +1,10 @@
 package dk.dtu.mitprojektarkiv;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GestureDetectorCompat;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.View;
@@ -21,6 +23,11 @@ public class Credits extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_credits);
 
+        ConstraintLayout constraintLayout = findViewById(R.id.credits);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();
         // Buttons
         homePage = (Button) findViewById(R.id.homePage);
         // Button Listener

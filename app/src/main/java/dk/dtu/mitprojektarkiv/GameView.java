@@ -59,7 +59,7 @@ public class GameView extends SurfaceView implements SensorEventListener {
             @Override
             public void surfaceCreated(SurfaceHolder surfaceHolder) {
                 Log.i(TAG,"Surface Created");
-
+                /*
                 // Define Images to be processes as bitmaps
                 dinoWalkRight.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkrigth_2));
                 dinoWalkRight.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkrigth_3));
@@ -76,15 +76,15 @@ public class GameView extends SurfaceView implements SensorEventListener {
                 dinoWalkLeft.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkleft_6));
                 dinoWalkLeft.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkleft_7));
                 dinoWalkLeft.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkleft_8));
-
+                */
 
                 // Get Information from the different bitmaps
                 playerWidth = dinoWalkRight.get(0).getWidth();
                 playerHeigth = dinoWalkRight.get(0).getHeight();
 
                 // Creating background for the game
-                background = BitmapFactory.decodeResource(getResources(), R.drawable.tetris);
-                backgroundScale = Bitmap.createScaledBitmap(background, canvasWidth, canvasHeight, false);
+                //background = BitmapFactory.decodeResource(getResources(), R.drawable.tetris);
+                //backgroundScale = Bitmap.createScaledBitmap(background, canvasWidth, canvasHeight, false);
 
                 // Get the sizes of the different images
                 gameThread.setRunning(true);
