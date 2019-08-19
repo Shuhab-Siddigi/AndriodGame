@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class Credits extends AppCompatActivity implements View.OnClickListener {
 
@@ -23,11 +24,18 @@ public class Credits extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_credits);
 
+        // Gradient Animation
+
         ConstraintLayout constraintLayout = findViewById(R.id.credits);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
+
+        // Lorem ipsum Scroll funcion
+        ConstraintLayout marque = (ConstraintLayout) this.findViewById(R.id.credits);
+        marque.setSelected(true);
+
         // Buttons
         homePage = (Button) findViewById(R.id.homePage);
         // Button Listener

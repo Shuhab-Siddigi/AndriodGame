@@ -7,4 +7,6 @@
         android:duration="4000"/>
     <item android:drawable="@drawable/gradient_3"
         android:duration="4000"/>
+    <item android:drawable="@drawable/gradient_4"
+        android:duration="4000"/>
 </animation-list>

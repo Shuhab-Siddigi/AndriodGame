@@ -5,14 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class FrontPage extends AppCompatActivity implements View.OnClickListener {
 
-    // Instantations
+    // Properties
 
     Button startGameBtn, highScoreBtn, creditsBtn,extraBtn;
 
@@ -21,17 +24,29 @@ public class FrontPage extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frontpage);
 
-        // Knapper
+        // Buttons
         startGameBtn = (Button) findViewById(R.id.startGame);
         highScoreBtn = (Button) findViewById(R.id.highScore);
         creditsBtn = (Button) findViewById(R.id.credits);
         extraBtn = (Button) findViewById(R.id.extraBtn);
 
-        // Knap Lytter
+        // Button Listener
         startGameBtn.setOnClickListener(this);
         highScoreBtn.setOnClickListener(this);
         creditsBtn.setOnClickListener(this);
         extraBtn.setOnClickListener(this);
+
+        // Creating moving text for front Page
+        TextView welcomScreen = (TextView) this.findViewById(R.id.welcomeScreen);
+        // If the orientation is in portrait mode then show animation
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            welcomScreen.setSelected(true);
+        } // if its not in portrait mode then set the text empty
+        else {
+            welcomScreen.setText("");
+        }
+
+
     }
 
     @Override // Small mux for handling what happens if you press the buttons
