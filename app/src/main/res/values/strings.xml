@@ -4,5 +4,8 @@
     <string name="highScore">High Score</string>
     <string name="startGame">Start Game</string>
     <string name="homePage">Return</string>
+    <string name="readyBtn">Ready ?</string>
     <string name="extra">Just Stuff</string>
+    <string name="leftBtn">Left Button</string>
+    <string name="rightBtn">Right Button</string>
 </resources>

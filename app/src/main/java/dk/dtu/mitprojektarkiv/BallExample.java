@@ -42,7 +42,7 @@ public class BallExample extends View {
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         switch (keyCode) {
-            case KeyEvent.KEYCODE_A: // Increase speed right
+            case KeyEvent.KEYCODE_A: // Increase speed rightBtn
                 ballSpeedY = 0;
                 if
                 (ballSpeedX > 0) ;
@@ -50,7 +50,7 @@ public class BallExample extends View {
                     ballSpeedX = -10;
                 }
                 break;
-            case KeyEvent.KEYCODE_D: // Increase speed left
+            case KeyEvent.KEYCODE_D: // Increase speed leftBtn
                 ballSpeedY = 0;
                 if
                 (ballSpeedX < 0) ;
