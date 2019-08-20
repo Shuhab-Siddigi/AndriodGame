@@ -1,6 +1,8 @@
 package dk.dtu.mitprojektarkiv;
+
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,7 +46,9 @@ public class HighScore extends Activity implements View.OnClickListener {
             if (view == homePageBtn) {
                 finish();
             }
-            if(view == viewPlayerBtn) {
+
+            if (view == viewPlayerBtn) {
+
                 Cursor res = sqlLiteDataBase.getAllData();
                 if (res.getCount() == 0) {
                     Toast.makeText(HighScore.this, "You are the first player friend", Toast.LENGTH_LONG).show();
@@ -58,22 +62,17 @@ public class HighScore extends Activity implements View.OnClickListener {
                 }
                 showMessage("Data", buffer.toString());
             }
-        }
-        else {
+        } else {
             Log.e(TAG, "Something went wrong when pressing btn in Highscore Class");
         }
     }
 
-    public void showMessage(String title,String Message){
+    public void showMessage(String title, String Message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setTitle(title);
         builder.setMessage(Message);
         builder.show();
     }
-
-
-
-
-
 }
+

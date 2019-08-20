@@ -42,14 +42,13 @@ public class SqlLiteDataBase extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(sqLiteDatabase);
-        Log.i(TAG, "Creating Sqlite Data Table");
+        Log.i(TAG, "Creating SQlite Data Table");
     }
 
-    public boolean insertData(String player, String points) {
+    public boolean insertPlayerName(String player) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_PlAYER, player);
-        contentValues.put(COLUMN_POINTS, points);
         long result = sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
 
         Log.i(TAG, "Inserted data to the base");
@@ -60,6 +59,7 @@ public class SqlLiteDataBase extends SQLiteOpenHelper {
 
     }
 
+
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_NAME, null);
@@ -68,14 +68,21 @@ public class SqlLiteDataBase extends SQLiteOpenHelper {
 
     }
 
-    public boolean updatePlayer(String id, String player, String points) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public boolean updateNameAndId(String id, String player) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_ID, id);
         contentValues.put(COLUMN_PlAYER, player);
-        contentValues.put(COLUMN_POINTS, points);
-        db.update(TABLE_NAME, contentValues, "ID = ?", new String[]{id});
+        sqLiteDatabase.update(TABLE_NAME, contentValues, "ID = ?", new String[]{id});
         Log.i(TAG, "Player " +id + "Has been updated ");
+        return true;
+    }
+
+    public boolean updatePoints(String id,String points) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_POINTS,points);
+        db.update(TABLE_NAME, contentValues, "ID = ?",new String[] { id });
         return true;
     }
 
@@ -84,5 +91,10 @@ public class SqlLiteDataBase extends SQLiteOpenHelper {
         Log.i(TAG, "Player " + id + "has been deleted");
         return db.delete(TABLE_NAME, "ID = ?",new String[] {id});
     }
+
+    public static String getColumnId() {
+        return COLUMN_ID;
+    }
+
 
 }

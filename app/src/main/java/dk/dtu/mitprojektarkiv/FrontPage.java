@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,9 +21,11 @@ public class FrontPage extends AppCompatActivity implements View.OnClickListener
 
     // Properties
 
-    Button startGameBtn, highScoreBtn, creditsBtn, justStuffBtn;
+    Button startGameBtn, highScoreBtn, creditsBtn, justStuffBtn,deleteDataBtn;
 
     ImageView imageView;
+
+    SqlLiteDataBase sqlLiteDataBase;
 
 
     @Override
@@ -35,12 +38,14 @@ public class FrontPage extends AppCompatActivity implements View.OnClickListener
         highScoreBtn = (Button) findViewById(R.id.highScore);
         creditsBtn = (Button) findViewById(R.id.credits);
         justStuffBtn = (Button) findViewById(R.id.justStuffBtn);
+        deleteDataBtn = (Button) findViewById(R.id.deleteBtn);
 
         // Button Listener
         startGameBtn.setOnClickListener(this);
         highScoreBtn.setOnClickListener(this);
         creditsBtn.setOnClickListener(this);
         justStuffBtn.setOnClickListener(this);
+        deleteDataBtn.setOnClickListener(this);
 
         // Creating moving text for front Page
         TextView welcomScreen = (TextView) this.findViewById(R.id.welcomeScreen);
@@ -54,6 +59,9 @@ public class FrontPage extends AppCompatActivity implements View.OnClickListener
 
         // Camera
         imageView = (ImageView) findViewById(R.id.imageView);
+
+        // Sql Data base
+        sqlLiteDataBase = new SqlLiteDataBase(this);
 
     }
 
@@ -73,6 +81,9 @@ public class FrontPage extends AppCompatActivity implements View.OnClickListener
                 startActivity(i);
             } else if (view == justStuffBtn) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 0);
+            }else if (view == deleteDataBtn){
+                Intent intent = new Intent(this,DeletePlayer.class);
                 startActivityForResult(intent, 0);
             } else {
                 System.out.println("Front Page activity intent went Wrong");
@@ -105,9 +116,10 @@ public class FrontPage extends AppCompatActivity implements View.OnClickListener
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-        imageView.setImageBitmap(bitmap);
+            super.onActivityResult(requestCode, resultCode, data);
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            imageView.setImageBitmap(bitmap);
+
     }
 
 

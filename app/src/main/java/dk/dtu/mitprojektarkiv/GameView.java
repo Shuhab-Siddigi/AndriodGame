@@ -212,3 +212,7 @@ public class GameView extends SurfaceView implements SensorEventListener {
         else this.currentBitmap = this.dinoWalkRight.get(0);
     }
 }
+
+
+// Update Class for the Points
+
