@@ -34,7 +34,8 @@
         android:id="@+id/welcomeScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="489dp"
         android:ellipsize="marquee"
         android:marqueeRepeatLimit="marquee_forever"
         android:padding="16dp"
@@ -42,7 +43,7 @@
         android:text="@string/welcome"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/FrontPageTitle"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,19 +71,31 @@
         app:layout_constraintTop_toBottomOf="@+id/highScore" />
 
     <Button
-        android:id="@+id/extraBtn"
+        android:id="@+id/justStuffBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="169dp"
         android:layout_marginBottom="8dp"
         android:text="@string/extra"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="157dp"
+        android:layout_height="231dp"
+        android:contentDescription="@string/cameraDescription"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/credits"
+        app:layout_constraintTop_toBottomOf="@+id/highScore" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
