@@ -9,6 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".PopUpActivity"
+            android:theme="@style/AppTheme.PopMe"
+            ></activity>
         <activity android:name=".Game" />
         <activity android:name=".HighScore" />
         <activity android:name=".Credits" />

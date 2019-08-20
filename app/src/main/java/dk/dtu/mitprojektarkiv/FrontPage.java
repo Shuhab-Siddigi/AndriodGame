@@ -61,8 +61,9 @@ public class FrontPage extends AppCompatActivity implements View.OnClickListener
     public void onClick(View view) {
         if (view != null) {
             if (view == startGameBtn) {
+
                 startGameBtn.setText("Lets GO!");
-                Intent i = new Intent(this, Game.class);
+                Intent i = new Intent(getApplicationContext(), PopUpActivity.class);
                 startActivity(i);
             } else if (view == highScoreBtn) {
                 Intent i = new Intent(this, HighScore.class);
