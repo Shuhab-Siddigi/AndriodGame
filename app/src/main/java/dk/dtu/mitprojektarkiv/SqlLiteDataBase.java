@@ -14,8 +14,8 @@ public class SqlLiteDataBase extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     // Data base name
     private static final String DATABASE_NAME = "High Score's";
-    // Data base tabel name
-    private static final String TABLE_NAME = "Player Data";
+    // Data base tabel name (MUST BE IN ONE WORD!!!!! )
+    private static final String TABLE_NAME = "SQLDATA";
     // Table Fields
     private static final String COLUMN_ID = "ID";
     private static final String COLUMN_PlAYER = "PLAYER";
@@ -25,16 +25,16 @@ public class SqlLiteDataBase extends SQLiteOpenHelper {
 
     public SqlLiteDataBase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
-
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         // Don't know why but had an error if it was not written this way
-        sqLiteDatabase.execSQL(String.format("create table %s (ID INTEGER PRIMARY KEY AUTOINCREMENT,PLAYER TEXT,POINTS INTEGER)", TABLE_NAME));
-
-
+        sqLiteDatabase.execSQL(
+                "CREATE TABLE " + TABLE_NAME + " (" +
+                        COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        COLUMN_PlAYER + " TEXT, " +
+                        COLUMN_POINTS + " INTEGER " +")");
         Log.i(TAG, "Executing Sql lite Base");
     }
 
@@ -46,11 +46,11 @@ public class SqlLiteDataBase extends SQLiteOpenHelper {
     }
 
     public boolean insertData(String player, String points) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_PlAYER, player);
         contentValues.put(COLUMN_POINTS, points);
-        long result = db.insert(TABLE_NAME, null, contentValues);
+        long result = sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
 
         Log.i(TAG, "Inserted data to the base");
         if (result == -1)
