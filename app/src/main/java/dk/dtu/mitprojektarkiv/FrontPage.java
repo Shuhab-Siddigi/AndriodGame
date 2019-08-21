@@ -1,12 +1,14 @@
 package dk.dtu.mitprojektarkiv;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -29,6 +31,13 @@ public class FrontPage extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frontpage);
+
+        // Gradient Animation
+        ConstraintLayout constraintLayout = findViewById(R.id.frontpage);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();
 
         // Buttons
         startGameBtn = (Button) findViewById(R.id.startGame);

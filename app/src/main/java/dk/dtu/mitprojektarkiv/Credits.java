@@ -27,9 +27,7 @@ public class Credits extends AppCompatActivity implements View.OnClickListener {
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
 
-       // Cast Constraint layout so that the animations is set true
-        ConstraintLayout marque = (ConstraintLayout) this.findViewById(R.id.credits);
-        marque.setSelected(true);
+
 
         // Buttons
         homePageBtn = (Button) findViewById(R.id.homePageBtn);

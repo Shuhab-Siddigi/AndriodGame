@@ -1,8 +1,11 @@
 package dk.dtu.mitprojektarkiv;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +27,12 @@ public class DeletePlayer extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_player);
 
-
+        // Gradient Animation
+        ConstraintLayout constraintLayout = findViewById(R.id.deletePlayer);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();
         // Buttons
         returnBtn = (Button) findViewById(R.id.returnBtn);
         deletePlayerBtn = (Button) findViewById(R.id.deletePlayerbtn);

@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/deletePlayer"
+    android:background="@drawable/gradient_list"
     tools:context=".DeletePlayer">
 
     <EditText
@@ -16,6 +18,7 @@
         android:text="0"
         android:textAlignment="center"
         android:textSize="25sp"
+        android:textColor="#C6D3B6"
         app:layout_constraintBottom_toTopOf="@+id/deletePlayerbtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,6 +32,7 @@
         android:layout_marginBottom="61dp"
         android:text="@string/deletePlayer"
         android:textSize="32sp"
+        android:textColor="#C6D3B6"
         app:layout_constraintBottom_toTopOf="@+id/deleteID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

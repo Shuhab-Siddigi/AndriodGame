@@ -37,7 +37,6 @@ public class PopUpActivity extends AppCompatActivity implements View.OnClickList
         int popUpHeigth = displayMetrics.heightPixels;
 
         getWindow().setLayout((int) (popUpWidth * .8), (int) (popUpHeigth * .7));
-
         WindowManager.LayoutParams params = getWindow().getAttributes();
 
         params.gravity = Gravity.CENTER;

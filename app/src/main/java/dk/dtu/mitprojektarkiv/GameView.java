@@ -22,8 +22,6 @@ public class GameView extends SurfaceView implements SensorEventListener {
 
     private static final String TAG = "Game";
 
-    // SqlLiteDateBase
-
 
     // Measurement Properties
     private static int canvasHeight = Game.canvasHeight;

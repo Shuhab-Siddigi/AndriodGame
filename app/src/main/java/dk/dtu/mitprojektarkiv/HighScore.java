@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class HighScore extends Activity implements View.OnClickListener {
 
@@ -24,6 +27,13 @@ public class HighScore extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_high_score);
+
+        // Gradient Animation
+        ConstraintLayout constraintLayout = findViewById(R.id.highScore);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();
 
         // Creating new instance of database;
         sqlLiteDataBase = new SqlLiteDataBase(this);
