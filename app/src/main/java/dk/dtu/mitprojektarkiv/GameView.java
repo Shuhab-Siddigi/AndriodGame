@@ -6,19 +6,15 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.RectF;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.text.BoringLayout;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.WindowManager;
 
-import java.util.ArrayList;
+import java.util.Random;
 
 public class GameView extends SurfaceView implements SensorEventListener {
 
@@ -33,19 +29,25 @@ public class GameView extends SurfaceView implements SensorEventListener {
     // Game View and Thread Properties
     SurfaceHolder holder;
     private GameThread gameThread;
-    private Bitmap backGround;
 
+    // Bit map properties
+
+    private Bitmap dino;
 
     // Ball Properties
     Paint paint = new Paint();
-
-    // Position of the objects
     private float xPosition = 0;
     private float yPosition = 0;
     private int radius = 30;
-    private float xVel = 0;
-    private float yVel = 0;
+    private Paint ballColor = new Paint();
 
+    // Dino properties
+    private int dinoXposition = 300;
+    private int dinoYposition = 400;
+
+    // Game Properties
+    private Bitmap backGround;
+    private int score = 0;
     // Accelormeter
     private SensorManager sensorManager;
     private Sensor accelerometer;
@@ -66,6 +68,7 @@ public class GameView extends SurfaceView implements SensorEventListener {
                 Log.i(TAG, "Surface Created");
 
                 backGround = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.tetris), Game.canvasWidth, Game.canvasHeight, false);
+                dino = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.dino), 64, 64, false);
 
 
                 gameThread.setRunning(true);
@@ -98,7 +101,7 @@ public class GameView extends SurfaceView implements SensorEventListener {
 
     // For logical updates
     protected void update(Canvas canvas) {
-        playerMovement(canvas);
+        ballMovement(canvas);
     }
 
     // The draw function on the canvas
@@ -109,6 +112,11 @@ public class GameView extends SurfaceView implements SensorEventListener {
             canvas.drawBitmap(backGround, 0, 0, null);
             paint.setColor(Color.CYAN);
             canvas.drawCircle(xPosition, yPosition, radius, paint);
+            canvas.drawBitmap(dino, dinoXposition, dinoYposition, null);
+            if(hitCheck((int)xPosition,(int)yPosition) == true){
+                System.out.println("HIT!");
+            }
+
         } else {
             Log.e(TAG, "There is no canvas to draw on! ");
         }
@@ -134,7 +142,7 @@ public class GameView extends SurfaceView implements SensorEventListener {
     }
 
 
-    public void playerMovement(Canvas canvas) {
+    public void ballMovement(Canvas canvas) {
 
         xPosition = xPosition - (int) sensorValues[0];
         yPosition = yPosition + (int) sensorValues[1];
@@ -154,22 +162,19 @@ public class GameView extends SurfaceView implements SensorEventListener {
         }
     }
 
-    public void wallVertical(Canvas canvas, int xPosition, int yPosition, int xball, int yball) {
-        RectF wall = new RectF(0 + xPosition, 0 + yPosition, 300 + xPosition, 35 + yPosition);
-        paint.setColor(Color.WHITE);
-        canvas.drawRect(wall, paint);
-    }
-
-    public void wallHorisontal(Canvas canvas, int xPosition, int yPosition) {
-
-        RectF wall = new RectF(0 + xPosition, 0 + yPosition, 35 + xPosition, 300 + yPosition);
-        paint.setColor(Color.WHITE);
-        canvas.drawRect(wall, paint);
-
+    public boolean hitCheck(int x, int y) {
+        if (dinoXposition < xPosition && xPosition < (dinoXposition + dino.getWidth()) &&
+        dinoYposition < yPosition && yPosition <(dinoYposition + dino.getHeight())){
+            return true;
+        }
+        else return false;
     }
 
 
 }
+
+
+
 
 
 
