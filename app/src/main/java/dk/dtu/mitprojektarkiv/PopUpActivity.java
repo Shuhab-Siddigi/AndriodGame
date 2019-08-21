@@ -68,8 +68,11 @@ public class PopUpActivity extends AppCompatActivity implements View.OnClickList
 
             if (view == playGame) {
                 boolean isInserted = sqlLiteDataBase.insertPlayerName(editPlayer.getText().toString());
-                if (isInserted == true)
+                if (isInserted == true) {
                     Toast.makeText(PopUpActivity.this, "Player Name Saved", Toast.LENGTH_LONG).show();
+                }
+                Intent i = new Intent(this, Game.class);
+                startActivity(i);
             } else
                 Toast.makeText(PopUpActivity.this, "Player Name could not be inserted", Toast.LENGTH_LONG).show();
         } else

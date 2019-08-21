@@ -6,13 +6,17 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.text.BoringLayout;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 
@@ -21,32 +25,31 @@ public class GameView extends SurfaceView implements SensorEventListener {
     private static final String TAG = "Game";
 
     // Measurement Properties
+
     private static int canvasHeight = Game.canvasHeight;
     private static int canvasWidth = Game.canvasWidth;
-    private static int playerHeigth = 0;
-    private static int playerWidth = 0;
 
-    // Bitmap Properties
-    private Bitmap dino, background, backgroundScale, currentBitmap;
+
+    // Game View and Thread Properties
     SurfaceHolder holder;
     private GameThread gameThread;
-    private ArrayList<Bitmap> dinoWalkRight = new ArrayList<>();
-    private ArrayList<Bitmap> dinoWalkLeft = new ArrayList<>();
+    private Bitmap backGround;
+
 
     // Ball Properties
     Paint paint = new Paint();
 
     // Position of the objects
     private float xPosition = 0;
-    private float yPosition = 700;
-    private float xVel = 10;
-    private float yVel = 2;
-    private int counter, walkNumber,direction = 0;
+    private float yPosition = 0;
+    private int radius = 30;
+    private float xVel = 0;
+    private float yVel = 0;
+
     // Accelormeter
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private int[] sensorValues = new int[3];
-
 
     public GameView(final Context context) {
         super(context);
@@ -55,51 +58,30 @@ public class GameView extends SurfaceView implements SensorEventListener {
 
         // Create a holder to take care of tasks and clean up
         holder = getHolder();
+
+
         holder.addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder surfaceHolder) {
-                Log.i(TAG,"Surface Created");
-                /*
-                // Define Images to be processes as bitmaps
-                dinoWalkRight.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkrigth_2));
-                dinoWalkRight.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkrigth_3));
-                dinoWalkRight.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkrigth_4));
-                dinoWalkRight.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkrigth_5));
-                dinoWalkRight.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkrigth_6));
-                dinoWalkRight.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkrigth_7));
-                dinoWalkRight.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkright_8));
-                dinoWalkLeft.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkleft_1));
-                dinoWalkLeft.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkleft_2));
-                dinoWalkLeft.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkleft_3));
-                dinoWalkLeft.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkleft_4));
-                dinoWalkLeft.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkleft_5));
-                dinoWalkLeft.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkleft_6));
-                dinoWalkLeft.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkleft_7));
-                dinoWalkLeft.add(BitmapFactory.decodeResource(getResources(), R.drawable.dinowalkleft_8));
-                */
+                Log.i(TAG, "Surface Created");
 
-                // Get Information from the different bitmaps
-                playerWidth = dinoWalkRight.get(0).getWidth();
-                playerHeigth = dinoWalkRight.get(0).getHeight();
+                backGround = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.tetris), Game.canvasWidth, Game.canvasHeight, false);
 
-                // Creating background for the game
-                //background = BitmapFactory.decodeResource(getResources(), R.drawable.tetris);
-                //backgroundScale = Bitmap.createScaledBitmap(background, canvasWidth, canvasHeight, false);
 
-                // Get the sizes of the different images
                 gameThread.setRunning(true);
                 gameThread.start();
                 accelerometerInit(context);
+
             }
 
             @Override
             public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-                Log.i(TAG,"Surface Changed");
+                Log.i(TAG, "Surface Changed");
             }
 
             @Override
             public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-                Log.i(TAG,"Surface Destroyed");
+                Log.i(TAG, "Surface Destroyed");
                 boolean retry = true;
                 gameThread.setRunning(false);
                 while (retry) {
@@ -122,16 +104,13 @@ public class GameView extends SurfaceView implements SensorEventListener {
     // The draw function on the canvas
     @Override
     public void draw(Canvas canvas) {
-        if ( canvas != null) {
-            // For Background at things which are always there
+        if (canvas != null) {
             super.draw(canvas);
-            //canvas.drawBitmap(backgroundScale, 0, 0, null);
-            canvas.drawColor(Color.BLUE);
-            canvas.drawBitmap(currentBitmap, xPosition, yPosition, null);
-            canvas.drawBitmap(dinoWalkRight.get(0), xPosition, yPosition, null);
-        }
-        else{
-            Log.e(TAG,"There is no canvas to draw on! ");
+            canvas.drawBitmap(backGround, 0, 0, null);
+            paint.setColor(Color.CYAN);
+            canvas.drawCircle(xPosition, yPosition, radius, paint);
+        } else {
+            Log.e(TAG, "There is no canvas to draw on! ");
         }
     }
 // Sensor Methods
@@ -156,63 +135,43 @@ public class GameView extends SurfaceView implements SensorEventListener {
 
 
     public void playerMovement(Canvas canvas) {
-        int walkNumber = 0;
-        xVel += 0.5;
-        if (Game.rigthBtnAction == 2) {
-            direction = 0;
-            xPosition += xVel;
-            this.counter++;
-            xVel = 0;
-        }
-        if (Game.leftBtnAction == 2) {
-            direction = 1;
-            xPosition -= xVel;
-            xVel = 0;
-            this.counter++;
-            System.out.println(xPosition);
-        }
-        if (xPosition >= Game.canvasWidth) {
-            xPosition = canvas.getWidth();
-        }
-        if (xPosition <= 0) {
-            xPosition = 0;
-        }
-        if ((Game.rigthBtnAction) == 2) {
-            if (counter == 5) {
-                this.walkNumber++;
-                if (this.walkNumber == 6) {
-                    this.walkNumber = 0;
-                }
-                if (this.counter == 5) {
-                    this.counter = 0;
-                }
-            }
-        }
 
-        if (( Game.leftBtnAction) == 2) {
-            if (counter == 5) {
-                this.walkNumber++;
-                if (this.walkNumber == 6) {
-                    this.walkNumber = 0;
-                }
-                if (this.counter == 5) {
-                    this.counter = 0;
-                }
-            }
+        xPosition = xPosition - (int) sensorValues[0];
+        yPosition = yPosition + (int) sensorValues[1];
+        //Make sure we do not draw outside the bounds of the view.
+        //So the max values we can draw to are the bounds + the size of the circle
+        if (xPosition <= 0 + radius) {
+            xPosition = 0 + radius;
         }
-
-        if (direction == 0 ){
-            this.currentBitmap = this.dinoWalkRight.get(this.walkNumber);
-            System.out.println("Walk number direction 0 = " + this.walkNumber);
+        if (xPosition >= Game.canvasWidth - radius) {
+            xPosition = Game.canvasWidth - radius;
         }
-        if (direction == 1){
-            System.out.println("Walk number direction 1 = " + this.walkNumber);
-            this.currentBitmap = this.dinoWalkLeft.get(this.walkNumber);
+        if (yPosition <= 0 + radius) {
+            yPosition = 0 + radius;
         }
-        else this.currentBitmap = this.dinoWalkRight.get(0);
+        if (yPosition >= Game.canvasHeight - radius * 3) {
+            yPosition = Game.canvasHeight - radius * 3;
+        }
     }
+
+    public void wallVertical(Canvas canvas, int xPosition, int yPosition, int xball, int yball) {
+        RectF wall = new RectF(0 + xPosition, 0 + yPosition, 300 + xPosition, 35 + yPosition);
+        paint.setColor(Color.WHITE);
+        canvas.drawRect(wall, paint);
+    }
+
+    public void wallHorisontal(Canvas canvas, int xPosition, int yPosition) {
+
+        RectF wall = new RectF(0 + xPosition, 0 + yPosition, 35 + xPosition, 300 + yPosition);
+        paint.setColor(Color.WHITE);
+        canvas.drawRect(wall, paint);
+
+    }
+
+
 }
 
 
-// Update Class for the Points
+
+
 

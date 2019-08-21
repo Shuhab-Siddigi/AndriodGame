@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -35,8 +36,11 @@ public class Game extends Activity implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Must be placed here !!
-        canvasHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-        canvasWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        canvasHeight = displayMetrics.heightPixels;
+        canvasWidth = displayMetrics.widthPixels;
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         // Frame layout for the visible and invisible Controls
@@ -47,7 +51,8 @@ public class Game extends Activity implements View.OnClickListener {
         // Layer 2
         LinearLayout gameWidgets = new LinearLayout(this);
         // Layer 3
-        LinearLayout gameControls = new LinearLayout(this);
+
+        //LinearLayout gameControls = new LinearLayout(this);
 
         // Buttons
         exitBtn = new Button(this);
@@ -73,8 +78,8 @@ public class Game extends Activity implements View.OnClickListener {
 
         Log.i(TAG, "Canvas Heigth + Width = " + canvasHeight + " and " + canvasWidth);
 
-        gameControls.addView(leftBtn);
-        gameControls.addView(rightBtn);
+      //  gameControls.addView(leftBtn);
+       // gameControls.addView(rightBtn);
 
         Log.i(TAG, "Left And Right button added to the screen");
 
@@ -83,7 +88,7 @@ public class Game extends Activity implements View.OnClickListener {
         game.addView(gameView);
         Log.i(TAG, "Adding first layer to view");
         // Layer 2
-        game.addView(gameControls);
+      //  game.addView(gameControls);
         Log.i(TAG, "Adding second layer to view");
         // Layer 3
         game.addView(gameWidgets);
