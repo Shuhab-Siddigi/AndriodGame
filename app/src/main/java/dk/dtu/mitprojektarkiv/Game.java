@@ -11,9 +11,11 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 
 /*
@@ -25,24 +27,33 @@ public class Game extends Activity implements View.OnClickListener {
 
     private static final String TAG = "Game";
 
+    SqlLiteDataBase sqlLiteDataBase;
+    public static Integer points = 0;
+
     Button exitBtn, leftBtn, rightBtn;
     public static int canvasHeight, canvasWidth;
-    public static int leftBtnAction, rigthBtnAction = 0;
-    private int exitBtnWidth = 300;
+   // public static int leftBtnAction, rigthBtnAction = 0;
+    public int exitBtnWidth = 300;
 
 
-    @SuppressLint("ClickableViewAccessibility")
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Must be placed here !!
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        // Keeps the screen brigth all the time in game only
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         canvasHeight = displayMetrics.heightPixels;
         canvasWidth = displayMetrics.widthPixels;
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        // Sql Data base
+        sqlLiteDataBase = new SqlLiteDataBase(this);
+
         // Frame layout for the visible and invisible Controls
         FrameLayout game = new FrameLayout(this);
 
@@ -56,8 +67,8 @@ public class Game extends Activity implements View.OnClickListener {
 
         // Buttons
         exitBtn = new Button(this);
-        leftBtn = new Button(this);
-        rightBtn = new Button(this);
+     //   leftBtn = new Button(this);
+      //  rightBtn = new Button(this);
         Log.i(TAG, "Created Buttons");
 
         // Visible Controls
@@ -66,16 +77,16 @@ public class Game extends Activity implements View.OnClickListener {
         exitBtn.setX(canvasWidth-exitBtnWidth);
         gameWidgets.addView(exitBtn);
 
+        /*
         // Invisible Controls
         leftBtn.setWidth(canvasWidth / 2);
         leftBtn.setHeight(canvasHeight);
         leftBtn.getBackground().setAlpha(20);  // 25% transparent
 
-
         rightBtn.setWidth(canvasWidth / 2);
         rightBtn.setHeight(canvasHeight);
         rightBtn.getBackground().setAlpha(20);  // 25% transparent
-
+        */
         Log.i(TAG, "Canvas Heigth + Width = " + canvasHeight + " and " + canvasWidth);
 
       //  gameControls.addView(leftBtn);
@@ -92,14 +103,14 @@ public class Game extends Activity implements View.OnClickListener {
         Log.i(TAG, "Adding second layer to view");
         // Layer 3
         game.addView(gameWidgets);
-        Log.i(TAG, "Adding third layer to view");
+      //  Log.i(TAG, "Adding third layer to view");
 
         setContentView(game);
         Log.i(TAG, "Setting Content View to Layer 1/2/3");
         exitBtn.setOnClickListener(this);
 
         // Have supressed acceseorbility warining !!
-
+        /*
         leftBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -127,10 +138,24 @@ public class Game extends Activity implements View.OnClickListener {
                 return false;
             }
         });
+        */
     }
+
 
     public void onClick(View view) {
         if (view == exitBtn) {
+
+            boolean isInserted = sqlLiteDataBase.updatePoints(sqlLiteDataBase.getPlayerId().toString(),
+                    points.toString());
+            Log.e(TAG,"Points are = " + points);
+            if(isInserted == true) {
+                Toast.makeText(Game.this, "Your points have been saved", Toast.LENGTH_LONG).show();
+                points = 0;
+            }
+            else
+                Toast.makeText(Game.this,"Your points could not be saved",Toast.LENGTH_LONG).show();
+
+
             Intent intent = new Intent(this, FrontPage.class);
             startActivity(intent);
             System.out.println("Hello");

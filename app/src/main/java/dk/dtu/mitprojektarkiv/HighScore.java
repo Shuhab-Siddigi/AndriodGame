@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 public class HighScore extends Activity implements View.OnClickListener {
@@ -41,10 +40,19 @@ public class HighScore extends Activity implements View.OnClickListener {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(this, FrontPage.class);
+        startActivity(i);
+    }
+
+    @Override
     public void onClick(View view) {
         if (view != null) {
             if (view == homePageBtn) {
                 finish();
+
+
             }
 
             if (view == viewPlayerBtn) {

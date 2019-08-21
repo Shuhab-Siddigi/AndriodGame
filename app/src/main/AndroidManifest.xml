@@ -13,7 +13,9 @@
         <activity
             android:name=".PopUpActivity"
             android:theme="@style/AppTheme.PopMe" />
-        <activity android:name=".Game" />
+        <activity
+            android:name=".Game"
+            android:screenOrientation="landscape"/>
         <activity android:name=".HighScore" />
         <activity android:name=".Credits" />
         <activity android:name=".FrontPage">

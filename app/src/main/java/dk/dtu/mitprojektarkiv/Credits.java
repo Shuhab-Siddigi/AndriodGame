@@ -2,15 +2,11 @@ package dk.dtu.mitprojektarkiv;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.GestureDetectorCompat;
-
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.GestureDetector;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+
 
 public class Credits extends AppCompatActivity implements View.OnClickListener {
 

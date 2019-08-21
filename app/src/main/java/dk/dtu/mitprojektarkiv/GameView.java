@@ -22,8 +22,10 @@ public class GameView extends SurfaceView implements SensorEventListener {
 
     private static final String TAG = "Game";
 
-    // Measurement Properties
+    // SqlLiteDateBase
 
+
+    // Measurement Properties
     private static int canvasHeight = Game.canvasHeight;
     private static int canvasWidth = Game.canvasWidth;
 
@@ -49,7 +51,6 @@ public class GameView extends SurfaceView implements SensorEventListener {
     private Bitmap backGround;
     private int score = 0;
     private Bitmap dino;
-    private int pointsCounter = 0;
     // Accelormeter
     private SensorManager sensorManager;
     private Sensor accelerometer;
@@ -63,11 +64,12 @@ public class GameView extends SurfaceView implements SensorEventListener {
         // Create a holder to take care of tasks and clean up
         holder = getHolder();
 
-
         holder.addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder surfaceHolder) {
                 Log.i(TAG, "Surface Created");
+
+
 
                 // Bitmap Settings
                 backGround = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.tetris), Game.canvasWidth, Game.canvasHeight, false);
@@ -132,7 +134,7 @@ public class GameView extends SurfaceView implements SensorEventListener {
             // Draw Dinoes
             canvas.drawBitmap(dino, dinoXposition, dinoYposition, null);
             // Draw Score Count
-            canvas.drawText("Score : "+ pointsCounter,20,60,scorePaint);
+            canvas.drawText("Score : "+ (int)Game.points,20,60,scorePaint);
 
         } else {
             Log.e(TAG, "There is no canvas to draw on! ");
@@ -161,8 +163,8 @@ public class GameView extends SurfaceView implements SensorEventListener {
 
     public void ballMovement(Canvas canvas) {
 
-        xPosition = xPosition - (int) sensorValues[0];
-        yPosition = yPosition + (int) sensorValues[1];
+        xPosition = xPosition + (int) sensorValues[1];
+        yPosition = yPosition + (int) sensorValues[0];
         //Make sure we do not draw outside the bounds of the view.
         //So the max values we can draw to are the bounds + the size of the circle
         if (xPosition <= 0 + radius) {
@@ -190,12 +192,12 @@ public class GameView extends SurfaceView implements SensorEventListener {
     private void randomDinoPosition(){
         Random Xrandom = new Random();
         dinoXposition = Xrandom.nextInt(canvasWidth-dino.getWidth());
+        System.out.println("Next X Random number is " + (canvasWidth-dino.getWidth()));
         Random Yrandom = new Random();
         dinoYposition = Yrandom.nextInt(canvasHeight-dino.getHeight());
-        pointsCounter++;
+        System.out.println("Next Y Random number is " + (canvasHeight-dino.getHeight()));
+        Game.points++;
     }
-
-
 
 }
 

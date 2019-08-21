@@ -6,13 +6,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.SurfaceView;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -117,9 +114,10 @@ public class FrontPage extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             super.onActivityResult(requestCode, resultCode, data);
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(bitmap);
-
+            if ( data != null) {
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                imageView.setImageBitmap(bitmap);
+            }
     }
 
 

@@ -20,6 +20,7 @@ public class SqlLiteDataBase extends SQLiteOpenHelper {
     private static final String COLUMN_ID = "ID";
     private static final String COLUMN_PlAYER = "PLAYER";
     private static final String COLUMN_POINTS = "POINTS";
+    private static Long playerID;
 
     SQLiteDatabase sqLiteDatabase;
 
@@ -54,9 +55,10 @@ public class SqlLiteDataBase extends SQLiteOpenHelper {
         Log.i(TAG, "Inserted data to the base");
         if (result == -1)
             return false;
-        else
+        else {
+            playerID = result;
             return true;
-
+        }
     }
 
 
@@ -92,8 +94,9 @@ public class SqlLiteDataBase extends SQLiteOpenHelper {
         return db.delete(TABLE_NAME, "ID = ?",new String[] {id});
     }
 
-    public static String getColumnId() {
-        return COLUMN_ID;
+
+    public static Long getPlayerId() {
+        return playerID;
     }
 
 

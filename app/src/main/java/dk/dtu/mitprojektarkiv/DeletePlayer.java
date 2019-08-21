@@ -1,7 +1,6 @@
 package dk.dtu.mitprojektarkiv;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,7 +47,6 @@ public class DeletePlayer extends AppCompatActivity implements View.OnClickListe
                 startActivity(i);
             }
             if (view == deletePlayerBtn) {
-
                 Integer deletedRows = sqlLiteDataBase.deletePlayer(idInput.getText().toString());
                 if (deletedRows > 0)
                     Toast.makeText(DeletePlayer.this, "Player Deleted", Toast.LENGTH_LONG).show();
