@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -15,6 +16,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import java.util.Random;
+import java.util.Timer;
 
 public class GameView extends SurfaceView implements SensorEventListener {
 
@@ -25,21 +27,19 @@ public class GameView extends SurfaceView implements SensorEventListener {
     private static int canvasHeight = Game.canvasHeight;
     private static int canvasWidth = Game.canvasWidth;
 
-
     // Game View and Thread Properties
     SurfaceHolder holder;
     private GameThread gameThread;
 
-    // Bit map properties
-
-    private Bitmap dino;
-
     // Ball Properties
-    Paint paint = new Paint();
+    private Paint paint = new Paint();
     private float xPosition = 0;
     private float yPosition = 0;
     private int radius = 30;
     private Paint ballColor = new Paint();
+
+    // Score Counter Properties
+    private Paint scorePaint = new Paint();
 
     // Dino properties
     private int dinoXposition = 300;
@@ -48,6 +48,8 @@ public class GameView extends SurfaceView implements SensorEventListener {
     // Game Properties
     private Bitmap backGround;
     private int score = 0;
+    private Bitmap dino;
+    private int pointsCounter = 0;
     // Accelormeter
     private SensorManager sensorManager;
     private Sensor accelerometer;
@@ -67,14 +69,24 @@ public class GameView extends SurfaceView implements SensorEventListener {
             public void surfaceCreated(SurfaceHolder surfaceHolder) {
                 Log.i(TAG, "Surface Created");
 
+                // Bitmap Settings
                 backGround = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.tetris), Game.canvasWidth, Game.canvasHeight, false);
                 dino = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.dino), 64, 64, false);
 
+                // Ball Settings
+                ballColor.setColor(Color.CYAN);
 
+                // Score Counter Settings
+                scorePaint.setColor(Color.WHITE);
+                scorePaint.setTextSize(40);
+                scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
+                scorePaint.setAntiAlias(true);
+
+
+                // Initialising Game Thread
                 gameThread.setRunning(true);
                 gameThread.start();
                 accelerometerInit(context);
-
             }
 
             @Override
@@ -102,6 +114,10 @@ public class GameView extends SurfaceView implements SensorEventListener {
     // For logical updates
     protected void update(Canvas canvas) {
         ballMovement(canvas);
+        if(hitCheck((int)xPosition,(int)yPosition) == true){
+            System.out.println("HIT!");
+            randomDinoPosition();
+        }
     }
 
     // The draw function on the canvas
@@ -109,13 +125,14 @@ public class GameView extends SurfaceView implements SensorEventListener {
     public void draw(Canvas canvas) {
         if (canvas != null) {
             super.draw(canvas);
+            // Draw BackGround
             canvas.drawBitmap(backGround, 0, 0, null);
-            paint.setColor(Color.CYAN);
-            canvas.drawCircle(xPosition, yPosition, radius, paint);
+            // Draw Player
+            canvas.drawCircle(xPosition, yPosition, radius, ballColor);
+            // Draw Dinoes
             canvas.drawBitmap(dino, dinoXposition, dinoYposition, null);
-            if(hitCheck((int)xPosition,(int)yPosition) == true){
-                System.out.println("HIT!");
-            }
+            // Draw Score Count
+            canvas.drawText("Score : "+ pointsCounter,20,60,scorePaint);
 
         } else {
             Log.e(TAG, "There is no canvas to draw on! ");
@@ -162,13 +179,22 @@ public class GameView extends SurfaceView implements SensorEventListener {
         }
     }
 
-    public boolean hitCheck(int x, int y) {
+    private boolean hitCheck(int x, int y) {
         if (dinoXposition < xPosition && xPosition < (dinoXposition + dino.getWidth()) &&
         dinoYposition < yPosition && yPosition <(dinoYposition + dino.getHeight())){
             return true;
         }
         else return false;
     }
+
+    private void randomDinoPosition(){
+        Random Xrandom = new Random();
+        dinoXposition = Xrandom.nextInt(canvasWidth-dino.getWidth());
+        Random Yrandom = new Random();
+        dinoYposition = Yrandom.nextInt(canvasHeight-dino.getHeight());
+        pointsCounter++;
+    }
+
 
 
 }
